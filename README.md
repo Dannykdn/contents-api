@@ -1,22 +1,47 @@
 # CONTENTS 타입에 따른 메타 처리
 
-### Swagger API 문서 작성 방법에 대한 예시
+## ContentsController
 
-## 템플릿 작성 예시 확인하기
-- 프로젝트 실행 후 http://localhost:8081/swagger-ui.html# 로 접속
-- 템플릿-API 클릭
-- EXAM method template -> API 문서 작성 예시 템플릿 
-- EXAM method template (copy) -> 복사용 템플릿
-
-## API 작성 시 예시 템플릿 사용하기
-- cliveworks-api (master 브랜치)
-- src/main/java/com/mylo/spring/controller/template/TemplateController.java
-- TemplateController.java 안에 copyTemplate 메서드 어노테이션 확인
-- @ApiOperation 어노테이션 내용 복사
-- 본인이 생성한 Controller에 있는 메서드에 붙여넣은 후 수정
-
+### ANNOTATION
+- **@ApiOperation**
+  - method의 설명을 작성할 수 있음.
+- **@RequestMapping**
+  - value와 method로 url에 해당하는 method를 정의해 준다.
+- **@RequestParam**
+  - 객체 생성 불가능
+  - 변수에 1:1 바인딩 가능
+- **@RequestBody**
+  - 객체 생성 가능
+  - 변수 1:1 바인딩 불가능
 
 
+### FILE
+- **selectContents()**
+    - 기능 : 파일 상세조회
+    - 필수 : (Integer) idx
+- **selectContentsList()**
+    - 기능 : 파일 리스트 조회
+    - 선택 : (Integer) idx
+- **uploadContents()**
+    - 기능 : 파일 업로드
+    - 필수 : (formData) file
+
+### META
+- selectContentsMeta()
+    - 기능 : 메타데이터 상세조회
+    - 필수 : (Integer) idx
+- selectContentsMetaList()
+    - 기능 : 메타데이터 리스트 조회
+    - 선택 : (Integer) idx / (String) item,value
+- insertContentsMeta()
+    - 기능 : 메타데이터 삽입
+    - 필수 : (ContentsMeta) meta
+- updateContentsMeta()
+    - 기능 : 메타데이터 수정
+    - 필수 : (ContentsMeta) meta
+- deleteContentsMeta()
+    - 기능 : 메타데이터 삭제
+    - 필수 : (Integer) idx
 
 
 

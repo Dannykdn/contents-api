@@ -18,8 +18,6 @@ import java.util.Map;
 public class ContentsController {
 
     @Autowired ContentsBO contentsBO;
-
-
     @ApiOperation(value = "Contents 파일 업로드 API",
             notes = "<fieldset>" +
                     "   <legend><b>Contents 파일 업로드</b></legend>" +
@@ -117,7 +115,7 @@ public class ContentsController {
                     "   </ul>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/file/select", method = RequestMethod.GET)
+    @RequestMapping(value = "/file/select", method = RequestMethod.POST)
     public Map<String, Object> getContents(@RequestParam Integer idx){
 
         return contentsBO.selectContents(idx);
@@ -158,7 +156,7 @@ public class ContentsController {
                     "}</pre>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/file/select-list", method = RequestMethod.GET)
+    @RequestMapping(value = "/file/select-list", method = RequestMethod.POST)
     public Map<String, Object> getContentsList(@RequestParam(required = false) Integer idx){
 
         return contentsBO.selectContentsList(idx);
@@ -276,7 +274,7 @@ public class ContentsController {
                     "   </ul>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/meta/select", method = RequestMethod.GET)
+    @RequestMapping(value = "/meta/select", method = RequestMethod.POST)
     public Map<String, Object> getContentsMeta(@RequestParam Integer contentsIdx){
 
         return contentsBO.selectContentsMeta(contentsIdx);
@@ -323,7 +321,7 @@ public class ContentsController {
                     "}</pre>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/meta/select-list", method = RequestMethod.GET)
+    @RequestMapping(value = "/meta/select-list", method = RequestMethod.POST)
     public Map<String, Object> getContentsMetaList(@RequestParam(required = false) Integer contentsIdx,
                                                    @RequestParam(required = false) String item,
                                                    @RequestParam(required = false) String value){
@@ -429,7 +427,7 @@ public class ContentsController {
                     "   </ul>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/meta/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/meta/delete", method = RequestMethod.POST)
     public boolean deleteContentsMeta(@RequestParam(required = false) Integer contentsIdx){
 
         return contentsBO.deleteContentsMeta(contentsIdx);
