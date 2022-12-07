@@ -10,16 +10,20 @@
 - **@RequestParam**
   - 객체 생성 불가능
   - 변수에 1:1 바인딩 가능
+  - ?param='' 형식으로 param 값을 받음
 - **@RequestBody**
   - 객체 생성 가능
   - 변수 1:1 바인딩 불가능
+- **@PathVariable**
+  - 변수에 1:1 바인딩 가능
+  - /{param} 형식으로 param 값을 받음
 
 
 ### FILE
-- **selectContents()**
+- **getContents()**
     - 기능 : 파일 상세조회
     - 필수 : (Integer) idx
-- **selectContentsList()**
+- **getContentsList()**
     - 기능 : 파일 리스트 조회
     - 선택 : (Integer) idx
 - **uploadContents()**
@@ -27,10 +31,10 @@
     - 필수 : (formData) file
 
 ### META
-- selectContentsMeta()
+- getContentsMeta()
     - 기능 : 메타데이터 상세조회
     - 필수 : (Integer) idx
-- selectContentsMetaList()
+- getContentsMetaList()
     - 기능 : 메타데이터 리스트 조회
     - 선택 : (Integer) idx / (String) item,value
 - insertContentsMeta()

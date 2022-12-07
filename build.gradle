@@ -4,6 +4,7 @@ dependencies { // 메인 프로젝트의 종속성 설정
     implementation project(':mylo-common-core')
     implementation project(':mylo-common-util')
     implementation project(':mylo-domain-common')
+    implementation project(':mylo-common-db')
     implementation project(':cliveworks-domain-contents')
 
     runtimeOnly 'mysql:mysql-connector-java'

@@ -2,6 +2,7 @@ package com.mylo.spring.controller.contents;
 
 import com.mylo.domain.contents.model.ContentsMeta;
 import com.mylo.spring.service.contents.ContentsBO;
+import com.mylo.spring.service.contents.ContentsMetaBO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -10,14 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
-
 @Api(tags = "Contents-API")
 @RestController
 @RequestMapping(value = "/v1/api/contents")
 @Slf4j
+
 public class ContentsController {
 
     @Autowired ContentsBO contentsBO;
+    @Autowired ContentsMetaBO contentsMetaBO;
     @ApiOperation(value = "Contents 파일 업로드 API",
             notes = "<fieldset>" +
                     "   <legend><b>Contents 파일 업로드</b></legend>" +
@@ -64,7 +66,7 @@ public class ContentsController {
                     "   </ul>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/file/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public boolean uploadContents(@RequestParam MultipartFile file){
 
         return contentsBO.uploadContents(file);
@@ -115,10 +117,10 @@ public class ContentsController {
                     "   </ul>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/file/select", method = RequestMethod.POST)
-    public Map<String, Object> getContents(@RequestParam Integer idx){
+    @RequestMapping(value = "{idx}", method = RequestMethod.GET)
+    public Map<String, Object> getContents(@PathVariable("idx") Integer idx){
 
-        return contentsBO.selectContents(idx);
+        return contentsBO.getContents(idx);
     }
 
     @ApiOperation(value = "Contents 파일 리스트 조회 API",
@@ -156,10 +158,10 @@ public class ContentsController {
                     "}</pre>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/file/select-list", method = RequestMethod.POST)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public Map<String, Object> getContentsList(@RequestParam(required = false) Integer idx){
 
-        return contentsBO.selectContentsList(idx);
+        return contentsBO.getContentsList(idx);
     }
 
     @ApiOperation(value = "Contents 메타데이터 삽입 API",
@@ -226,10 +228,10 @@ public class ContentsController {
                     "   </ul>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/meta/insert", method = RequestMethod.POST)
+    @RequestMapping(value = "/meta", method = RequestMethod.POST)
     public boolean insertContentsMeta(@RequestBody ContentsMeta meta){
 
-        return contentsBO.insertContentsMeta(meta);
+        return contentsMetaBO.insertContentsMeta(meta);
     }
 
     @ApiOperation(value = "Contents 메타데이터 상세조회 API",
@@ -274,10 +276,10 @@ public class ContentsController {
                     "   </ul>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/meta/select", method = RequestMethod.POST)
-    public Map<String, Object> getContentsMeta(@RequestParam Integer contentsIdx){
+    @RequestMapping(value = "/meta/{contentsIdx}", method = RequestMethod.GET)
+    public Map<String, Object> getContentsMeta(@PathVariable("contentsIdx") Integer contentsIdx){
 
-        return contentsBO.selectContentsMeta(contentsIdx);
+        return contentsMetaBO.getContentsMeta(contentsIdx);
     }
 
     @ApiOperation(value = "Contents 메타데이터 리스트 조회 API",
@@ -321,12 +323,10 @@ public class ContentsController {
                     "}</pre>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/meta/select-list", method = RequestMethod.POST)
-    public Map<String, Object> getContentsMetaList(@RequestParam(required = false) Integer contentsIdx,
-                                                   @RequestParam(required = false) String item,
-                                                   @RequestParam(required = false) String value){
+    @RequestMapping(value = "meta/list", method = RequestMethod.POST)
+    public Map<String, Object> getContentsMetaList(@RequestBody(required = false) Map<String, Object> search){
 
-        return contentsBO.selectContentsMetaList(contentsIdx, item, value);
+        return contentsMetaBO.getContentsMetaList(search);
     }
 
     @ApiOperation(value = "Contents 메타데이터 수정 API",
@@ -378,10 +378,10 @@ public class ContentsController {
                     "   </ul>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/meta/update", method = RequestMethod.POST)
+    @RequestMapping(value = "/meta", method = RequestMethod.PUT)
     public boolean updateContentsMeta(@RequestBody ContentsMeta meta){
 
-        return contentsBO.updateContentsMeta(meta);
+        return contentsMetaBO.updateContentsMeta(meta);
     }
 
     @ApiOperation(value = "Contents 메타데이터 삭제 API",
@@ -427,9 +427,9 @@ public class ContentsController {
                     "   </ul>" +
                     "</fieldset>"
     )
-    @RequestMapping(value = "/meta/delete", method = RequestMethod.POST)
-    public boolean deleteContentsMeta(@RequestParam(required = false) Integer contentsIdx){
+    @RequestMapping(value = "/meta/{contentsIdx}", method = RequestMethod.DELETE)
+    public boolean deleteContentsMeta(@PathVariable("contentsIdx") Integer contentsIdx){
 
-        return contentsBO.deleteContentsMeta(contentsIdx);
+        return contentsMetaBO.deleteContentsMeta(contentsIdx);
     }
 }
